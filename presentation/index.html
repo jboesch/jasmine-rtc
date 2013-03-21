@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Jasmine Presentation</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+                <section>
+                    <img src="img/rtc1.png" />
+                </section>
+
+                <section>
+                    <img src="img/rtc2.png" />
+                </section>
+
+                <section>
+                    <img src="img/rtc3.png" />
+                </section>
+
+				<section>
+					<h1>Unit Testing with Jasmine</h1>
+					<img src="img/jasmine-logo.png" style="background:#fff;" />
+					<p>
+						<small>By <a href="http://7shifts.com">Jordan Boesch</a> / <a href="http://twitter.com/jboesch">@jboesch</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>What is Jasmine?</h2>
+					<p>
+						Jasmine isn't just a pretty princess from Aladdin.
+					</p>
+                    <img src="img/jasmine-princess.jpeg" style="background:#fff;" />
+
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section>
+                    <p>
+                        Jasmine is a behavior-driven development framework for testing your JavaScript code. It does not depend on any other JavaScript frameworks. It does not require a DOM. And it has a clean, obvious syntax so that you can easily write tests.
+                    </p>
+
+				</section>
+
+				<section>
+
+                    <h2>Main Ingredients</h2>
+                    <ul>
+                        <li>Suites</li>
+                        <li>Specs</li>
+                        <li>Matchers</li>
+                        <li>beforeEach/afterEach</li>
+                        <li>Spies</li>
+                        <li>Async</li>
+                    </ul>
+                    <!--<pre><code contenteditable>describe("Calculator", function() {-->
+    <!--it("should times my number by two", function() {-->
+        <!--var result = timesByTwo(4);-->
+        <!--expect(result).toEqual(8);-->
+    <!--});-->
+<!--});</code></pre>-->
+				</section>
+
+				<section>
+					<h2>Suites</h2>
+					<p>
+						All of your test specs will be grouped into a suite. A suite is defined by a 'describe' function:
+					</p>
+<pre><code>describe('Calculator', function(){
+    describe('performing an addition', function(){
+        ...
+    });
+});
+</code></pre>
+                    <p>
+                        I usually name suites with the method name I'm testing.
+                    </p>
+				</section>
+
+				<section>
+					<h2>Specs</h2>
+					<p>
+						Within each suite are a series of specs (tests). A spec is defined by an 'it' function:
+					</p>
+<pre><code>it('should add 2 + 2 appropriately', function(){
+    ...
+});</code></pre>
+
+
+				</section>
+
+                <section>
+                    <h2>Together</h2>
+<pre><code>describe('Calculator', function(){
+    describe('performing an addition', function(){
+        it('should add 2 + 2 appropriately', function(){
+            ...
+        });
+    });
+});
+</code></pre>
+                </section>
+
+				<section>
+					<h2>Matchers</h2>
+					<p>
+                        A matcher is what you compare your result against your expectation with. A matcher is found within a spec.
+					</p>
+<pre><code>expect(x).toEqual(y);</code></pre>
+				</section>
+
+                <section>
+                    <h2>Together</h2>
+<pre><code>describe('Calculator', function(){
+    describe('performing an addition', function(){
+        it('should add 2 + 2 appropriately', function(){
+            expect(Calculator.add(2, 2)).toEqual(4);
+        });
+    });
+});
+</code></pre>
+</section>
+
+				<section>
+					<h2>Lots of Matchers</h2>
+                    <ul>
+                        <li>expect(x).toEqual(y);</li>
+                        <li>expect(x).toBe(y);</li>
+                        <li>expect(x).toMatch(regexPattern);</li>
+                        <li>expect(x).toBeDefined();</li>
+                        <li>expect(x).toBeUndefined();</li>
+                        <li>expect(x).toBeNull();</li>
+                        <li>expect(x).toBeTruthy();</li>
+                        <li>expect(x).toBeFalsy();</li>
+                        <li>expect(x).toContain(y);</li>
+                        <li>expect(x).toBeLessThan(y);</li>
+                        <li>expect(x).toBeGreaterThan(y);</li>
+                        <li>expect(function(){fn();}).toThrow(e);</li>
+                    </ul>
+				</section>
+
+                <section>
+                    <h2>Negative Matchers</h2>
+                    <p>You can cause a negative comparison by adding a .not in front of a matcher.</p>
+                    <pre><code>expect(x).not.toBeDefined();</code></pre>
+                </section>
+
+				<section>
+					<h2>Custom Matchers</h2>
+<pre><code>this.addMatchers({
+    toBeLessThan: function(expected) {
+        return this.actual < expected;
+    }
+});</code></pre>
+				</section>
+
+                <section>
+                    <h2>beforeEach/afterEach</h2>
+                    <p>You can have a chunk of code execute before each spec.</p>
+<pre><code>var x = 1;
+beforeEach(function(){
+    x++;
+});
+
+afterEach(function(){
+    x--;
+});
+
+it('should increment x', function(){
+    expect(x).toEqual(2);
+});
+
+it('should keep x at 2', function(){
+    expect(x).toEqual(2);
+});
+</code></pre>
+                </section>
+
+				<section>
+					<h2>Spies</h2>
+					<p>
+                        Spies are for mocking, and faking behaviors. A 'spy' replaces the function it is spying on.
+					</p>
+                    <pre><code>spyOn(Calculator, 'add').andReturn(26);</code></pre>
+				</section>
+
+                <section>
+                    <h2>Spy Matchers</h2>
+                    <p>Spies come with all types of different matchers for use.</p>
+                    <ul>
+                        <li>spyOn(x, 'method').andCallThrough();</li>
+                        <li>spyOn(x, 'method').andReturn(arguments);</li>
+                        <li>spyOn(x, 'method').andThrow(exception);</li>
+                        <li>spyOn(x, 'method').andCallFake(function(){
+                            return arguments[0];
+                         });</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>And their respective 'expect' matchers</h2>
+                    <ul>
+                        <li>expect(x.method).toHaveBeenCalled();</li>
+                        <li>expect(x.method).toHaveBeenCalledWith(arguments);</li>
+                        <li>expect(x.method).not.toHaveBeenCalled();</li>
+                        <li>expect(x.method).not.toHaveBeenCalledWith(arguments);</li>
+                    </ul>
+                </section>
+
+				<section id="themes">
+					<h2>Example of a spy with .andReturn()</h2>
+<pre><code>
+function Person(details){
+    this.age = details.age;
+}
+Person.prototype = {
+    getAge: function(){
+        return this.calculateAge();
+    },
+    calculateAge: function(){
+        return this.age;
+    }
+}
+
+it('should call calculateAge() when we call getAge()', function(){
+    var fakePerson = new Person({ age: 26 });
+    spyOn(fakePerson, 'calculateAge').andReturn(25);
+    expect(fakePerson.getAge()).toEqual(25);
+});
+</code></pre>
+				</section>
+
+                <section>
+                    <h2>Example of a spy with .andCallThrough()</h2>
+<pre><code>function Person(details){
+    this.age = details.age;
+}
+Person.prototype = {
+    getAge: function(){
+        return this.calculateAge();
+    },
+    calculateAge: function(){
+        return this.age;
+    }
+}
+
+it('should call calculateAge() when we call getAge()', function(){
+    var fakePerson = new Person({ age: 26 });
+    spyOn(fakePerson, 'calculateAge').andCallThrough();
+    expect(fakePerson.getAge()).toEqual(26);
+    expect(fakePerson.calculateAge).toHaveBeenCalled();
+});
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>Testing Async code</h2>
+                    <p>It does that too.</p>
+                </section>
+
+                <section>
+                    <h2>Async ingredients</h2>
+                    <ul>
+                        <li>runs();</li>
+                        <li>waits();</li>
+                        <li>waitsFor();</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>runs();</h2>
+                    <p>Execute in order serially within a spec and share a context.</p>
+                </section>
+
+                <section>
+<pre><code>it('should be a test', function (){
+    runs(function() {
+        this.foo = 0
+        this.foo++;
+        var bar = 0;
+        bar++;
+
+        expect(this.foo).toEqual(1);
+        expect(bar).toEqual(1);
+    });
+    runs(function(){
+        this.foo++;
+        var bar = 0
+        bar++;
+
+        expect(this.foo).toEqual(2);
+        expect(bar).toEqual(1);
+    });
+});</code></pre>
+                </section>
+
+                <section>
+                    <h2>waits();</h2>
+                    <p>The function waits() works with runs() to provide blocking before the next runs() block is run.</p>
+                </section>
+
+                <section>
+<pre><code>it('should be a test', function () {
+    runs(function () {
+        this.foo = 0;
+        var that = this;
+        setTimeout(function () {
+            that.foo++;
+        }, 250);
+    });
+
+    runs(function () {
+        expect(this.foo).toEqual(0);
+    });
+
+    waits(500);
+
+    runs(function () {
+        expect(this.foo).toEqual(1);
+    });
+});</code></pre>
+                </section>
+
+                <section>
+                    <h2>waitsFor();</h2>
+                    <p>Provides a better interface for pausing your spec until some other work has completed</p>
+                </section>
+
+                <section>
+<pre><code>describe('Spreadsheet', function(){
+    it('should calculate the total asynchronously', function(){
+        var spreadsheet = new Spreadsheet();
+        spreadsheet.fillWith(lotsOfFixtureDataValues());
+        spreadsheet.asynchronouslyCalculateTotal();
+
+    waitsFor(function(){
+        return spreadsheet.calculationIsComplete();
+    }, "Spreadsheet calculation never completed", 10000);
+
+    runs(function (){
+        expect(spreadsheet.total).toEqual(123456);
+    });
+});
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>But my code interacts with the DOM!</h2>
+                </section>
+
+                <section>
+                    <h2>The answer: jasmine-affix plugin</h2>
+                    <p>Written by Justin Searls</p>
+                </section>
+
+                <section>
+                    <p>Turns this...</p>
+<pre><code contenteditable>beforeEach(function(){
+    $container = $('&lt;div class=&quot;container&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;total&quot; /&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;').appendTo('body');
+});</code></pre>
+                </section>
+
+                <section>
+                    <p>Into this...</p>
+<pre><code>beforeEach(function(){
+    $container = affix('div input[class="total"]+span');
+});
+</code></pre>
+                    <p>Ahhhh. That's better.</p>
+                </section>
+
+                <section>
+                    <h2>What would I use that for?</h2>
+<pre><code>beforeEach(function(){
+    $container = affix('div input[class="total"]+span');
+    spyOn(Calculator, 'getElement').andReturn($container);
+});
+
+it('should set ', function(){
+    Calculator.setTotal(15);
+    expect($container.find('input').val()).toEqual(15);
+});
+</code></pre>
+                </section>
+
+				<section>
+					<h1>The End</h1>
+					<h3>Thank you, thank you. You're too kind.</h3>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
