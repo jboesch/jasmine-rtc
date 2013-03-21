@@ -301,7 +301,7 @@ it('should call calculateAge() when we call getAge()', function(){
 
                 <section>
                     <h2>runs();</h2>
-                    <p>Execute in order serially within a spec and share a context.</p>
+                    <p>Execute in order serially within a spec and shares a context.</p>
                 </section>
 
                 <section>
@@ -364,12 +364,13 @@ it('should call calculateAge() when we call getAge()', function(){
         var spreadsheet = new Spreadsheet();
         spreadsheet.fillWith(lotsOfFixtureDataValues());
         spreadsheet.asynchronouslyCalculateTotal();
+    });
 
     waitsFor(function(){
         return spreadsheet.calculationIsComplete();
     }, "Spreadsheet calculation never completed", 10000);
 
-    runs(function (){
+    runs(function(){
         expect(spreadsheet.total).toEqual(123456);
     });
 });
@@ -408,7 +409,7 @@ it('should call calculateAge() when we call getAge()', function(){
     spyOn(Calculator, 'getElement').andReturn($container);
 });
 
-it('should set ', function(){
+it('should set a total to the input element', function(){
     Calculator.setTotal(15);
     expect($container.find('input').val()).toEqual(15);
 });
